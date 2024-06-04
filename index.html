@@ -10,7 +10,8 @@
 </head>
 <style>
     fieldset {
-        background-color: rgb(253, 252, 252);
+        background-color: rgb(208, 224, 182);
+        border: 1px solid rgb(32, 109, 32);
     }
     label{
         font-size: large;
@@ -30,6 +31,9 @@
     }
     div.submit{
         margin-left: 50%;
+    }
+    body{
+        background-color: rgb(225, 251, 187);
     }
 </style>
 <div class="container mx-auto">
@@ -60,68 +64,88 @@
     
     <script>
         function validateForm() {
-            var name = document.getElementById('name').value ;
-            var dob = document.getElementById('dob').value ;
-            var contact = document.getElementById('contact').value ;
+            var name = document.getElementById('name').value;
+            var dob = document.getElementById('dob').value;
+            var contact = document.getElementById('contact').value;
         
-            var nameValue = name.value;
             var regexName = /^[A-Z][a-z\s]+$/;
-        
-            var phoneValue = contact.value;
             var regexPhone = /^[1-9][0-9]+$/;
         
-            if(name === "" || dob ==="" || contact ===""){
-                alert("Undefined");
+            if(name === "" || dob === "" || contact === ""){
+                alert("All fields are required.");
                 return false;
             }
         
-            else if(name.length < 4){
-                alert("Please enter name with at least 4 letters");
+            if(name.length < 4){
+                alert("Please enter a name with at least 4 letters.");
                 return false;
             }
         
-            else if  (!(/^\S{3,}$/.test(name))) {
-                alert('Name cannot contain whitespace');
+            if (!/^\S{3,}$/.test(name)) {
+                alert('Name cannot contain whitespace.');
                 return false;
             }
         
-            else if(!regexName.test(name)){
-                alert("Name 1st letter should be capital and not contain numbers or special character.");
+            if (!regexName.test(name)) {
+                alert("Name's first letter should be capital and not contain numbers or special characters.");
                 return false;
             }
         
-            else if(!(/^(?:(\w)(?!\1\1))+$/.test(name))){
-                alert("Per 3 alphabets allowed");
-            }
-        
-            else if(contact.length < 10){
-                alert("Enter 10 digit number");
+            if (!/^(?:(\w)(?!\1\1))+$/.test(name)) {
+                alert("Per 3 alphabets allowed.");
                 return false;
             }
         
-            else if(!regexPhone.test(contact)){
-                alert("Phone number should contain only valid number");
+            const dobDate = new Date(dob);
+            const today = new Date();
+        
+            // Calculate age in years, months, and days
+            let ageYears = today.getFullYear() - dobDate.getFullYear();
+            let ageMonths = today.getMonth() - dobDate.getMonth();
+            let ageDays = today.getDate() - dobDate.getDate();
+        
+            if (ageDays < 0) {
+                ageMonths--;
+                ageDays += new Date(today.getFullYear(), today.getMonth(), 0).getDate();
+            }
+        
+            if (ageMonths < 0) {
+                ageYears--;
+                ageMonths += 12;
+            }
+        
+            if (ageYears < 13) {
+                alert('You must be at least 13 years old.');
+                return false;
+            }
+            
+            if(contact.length < 10){
+                alert("Enter a 10-digit number.");
                 return false;
             }
         
-            else{
-                alert("Form submitted ! \nName is: "+name+",\nDOB is: "+dob+",\nPhone no.:"+contact);
-                return true;
+            if(!regexPhone.test(contact)){
+                alert("Phone number should contain only valid numbers.");
+                return false;
             }
         
+            alert(`Form submitted!\nName: ${name}\nDOB: ${ageYears} years, ${ageMonths} months, and ${ageDays} days\nPhone no.: ${contact}`);
+            return true;
         }
-        //---------------Disable Right Click------------------------
+        
+        // Disable Right Click
         document.addEventListener('contextmenu', function(e) {
             e.preventDefault();
         });
         
-        //---------------Text Selection and Copy Disabled-------------------------
+        // Text Selection and Copy Disabled
         document.addEventListener('DOMContentLoaded', (event) => {
             document.body.addEventListener('selectstart', (e) => e.preventDefault());
             document.body.addEventListener('copy', (e) => e.preventDefault());
             document.body.addEventListener('cut', (e) => e.preventDefault());
             document.body.addEventListener('paste', (e) => e.preventDefault());
         });
+        
     </script>
 </body>
 </html>
