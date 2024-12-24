@@ -1,3 +1,33 @@
+<!-- 
+
+This HTML file contains a contact form with validation and email sending functionality using EmailJS. The form includes fields for name, date of birth, email, phone number, and message. The form is styled using Bootstrap and custom CSS.
+
+Key Features:
+- Form validation:
+        - Name: Must start with a capital letter, contain no special characters, be at least 4 characters long, and not contain whitespace.
+        - Date of Birth: Must be at least 13 years old.
+        - Phone Number: Must be 10 digits long, start with a digit between 1-9, and contain no special characters.
+        - Message: Must not be empty.
+- Email sending using EmailJS:
+        - Requires EmailJS SDK and initialization with a user ID.
+        - Sends form data to a specified email address using a predefined EmailJS service and template.
+- Custom CSS for styling the form and background:
+        - Gradient background, styled form elements, and hover effects.
+        - Animated bubbles in the background for visual effect.
+- JavaScript for form validation and email sending:
+        - `validateForm()`: Validates the form fields.
+        - `sendEmail(event)`: Sends the form data via EmailJS if validation passes.
+- Additional JavaScript to disable right-click, text selection, and copy-paste actions on the page.
+
+Dependencies:
+- Bootstrap 5.3.3 for styling.
+- EmailJS SDK for email functionality.
+
+Usage:
+1. Replace the placeholder text "Replace with your actual User ID" with your actual EmailJS user ID.
+2. Replace the placeholder text '// Replace with your actual email address' with your actual email address.
+3. Include this file in your project and open it in a web browser to use the contact form.
+-->
 <!DOCTYPE html>
 <html lang="en">
 
@@ -12,7 +42,7 @@
         <script type="text/javascript" src="https://cdn.emailjs.com/dist/email.min.js"></script>
         <script type="text/javascript">
                 (function () {
-                        emailjs.init("EKWiDaQOEObNitq4W"); // Replace with your actual User ID
+                        emailjs.init("Replace with your actual User ID"); // Replace with your actual User ID
                 })();
 
                 function validateForm() {
@@ -89,7 +119,7 @@
                                 from_name: document.getElementById("fromName").value,
                                 phone_number: document.getElementById("phone").value,
                                 message: document.getElementById("message").value,
-                                to_email: 'tiwarisid022018@gmail.com' // Replace with your actual email address
+                                to_email: '// Replace with your actual email address' // Replace with your actual email address
                         };
 
                         emailjs.send('service_0iuncjb', 'template_3ml6ml8', templateParams)
